@@ -3,10 +3,11 @@ package io.github.poeticrainbow.retrotweaks.mixin.client.tweak.star_style;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
-import com.mojang.blaze3d.buffers.GpuBufferSlice;
+import com.mojang.renderpearl.api.buffers.GpuBufferSlice;
+import com.mojang.renderpearl.api.commands.RenderPass;
 import io.github.poeticrainbow.retrotweaks.enums.Versions;
 import io.github.poeticrainbow.retrotweaks.tweak.Tweaks;
-import net.minecraft.client.renderer.DynamicUniforms;
+import net.minecraft.client.renderer.DynamicGpuData;
 import net.minecraft.client.renderer.SkyRenderer;
 import net.minecraft.client.renderer.state.level.SkyRenderState;
 import net.minecraft.util.Mth;
@@ -46,8 +47,8 @@ public abstract class SkyRendererMixin {
         return value;
     }
 
-    @WrapOperation(method = "renderStars", at = @At(target = "Lnet/minecraft/client/renderer/DynamicUniforms;writeTransform(Lorg/joml/Matrix4f;Lorg/joml/Vector4f;)Lcom/mojang/blaze3d/buffers/GpuBufferSlice;", value = "INVOKE"))
-    private static GpuBufferSlice retrotweaks$opaque_stars(DynamicUniforms instance, Matrix4f modelView, Vector4f colorModulator, Operation<GpuBufferSlice> original) {
+    @WrapOperation(method = "renderStars", at = @At(target = "Lnet/minecraft/client/renderer/DynamicGpuData;writeTransform(Lorg/joml/Matrix4f;Lorg/joml/Vector4f;)Lcom/mojang/renderpearl/api/buffers/GpuBufferSlice;", value = "INVOKE"))
+    private static GpuBufferSlice retrotweaks$opaque_stars(DynamicGpuData instance, Matrix4f modelView, Vector4f colorModulator, Operation<GpuBufferSlice> original) {
         if (Tweaks.STAR_STYLE.get().isOlderThan(Versions.BETA)) {
             colorModulator.w = 1.0f;
         }
