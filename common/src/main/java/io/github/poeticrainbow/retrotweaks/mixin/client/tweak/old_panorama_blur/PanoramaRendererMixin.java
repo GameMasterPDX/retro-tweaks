@@ -2,7 +2,7 @@ package io.github.poeticrainbow.retrotweaks.mixin.client.tweak.old_panorama_blur
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import com.mojang.blaze3d.pipeline.RenderPipeline;
+import com.mojang.renderpearl.api.pipeline.RenderPipeline;
 import io.github.poeticrainbow.retrotweaks.tweak.Tweaks;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.Panorama;
@@ -16,7 +16,7 @@ public class PanoramaRendererMixin {
      * @author PoeticRainbow
      * replace the panorama overlay with the old gradient one
      */
-    @WrapOperation(method = "extractRenderState", at = @At(target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blit(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIFFIIIIII)V", value = "INVOKE"))
+    @WrapOperation(method = "extractRenderState", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blit(Lcom/mojang/renderpearl/api/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIFFIIIIII)V"))
     private void retrotweaks$replace_panorama_overlay(GuiGraphicsExtractor graphics, RenderPipeline renderPipeline, Identifier texture, int x, int y, float u, float v, int width, int height, int srcWidth, int srcHeight, int textureWidth, int textureHeight, Operation<Void> original) {
         if (Tweaks.OLD_PANORAMA_BLUR.get()) {
             // we cannot use GuiGraphics.blurBeforeThisStratum() as it can only happen once per frame

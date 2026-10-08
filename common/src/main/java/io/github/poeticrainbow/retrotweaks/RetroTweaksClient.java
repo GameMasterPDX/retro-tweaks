@@ -14,10 +14,10 @@ import io.github.poeticrainbow.retrotweaks.tweak.types.Tweak;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.server.MinecraftServer;
-import org.lwjgl.glfw.GLFW;
+import com.mojang.blaze3d.platform.InputConstants;
 
 public class RetroTweaksClient {
-    public static final KeyMapping RETRO_TWEAKS_BUTTON = new KeyMapping("key.retrotweaks", GLFW.GLFW_KEY_O, KeyMapping.Category.MISC);
+    public static final KeyMapping RETRO_TWEAKS_BUTTON = new KeyMapping("key.retrotweaks", InputConstants.KEY_O, KeyMapping.Category.MISC);
 
     public static void init() {
         // networking
